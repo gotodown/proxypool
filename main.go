@@ -7,7 +7,6 @@ import (
 	_ "net/http/pprof"
 	"os"
 
-	"github.com/zu1k/proxypool/api"
 	"github.com/zu1k/proxypool/internal/app"
 	"github.com/zu1k/proxypool/internal/cron"
 	"github.com/zu1k/proxypool/internal/database"
@@ -40,5 +39,5 @@ func main() {
 	fmt.Println("Do the first crawl...")
 	go app.CrawlGo()
 	go cron.Cron()
-	api.Run()
+	// api.Run()
 }
