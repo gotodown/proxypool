@@ -7,6 +7,9 @@
 - type: subscribe
   options:
     url: https://raw.githubusercontent.com/ssrsub/ssr/master/v2ray
+- type: subscribe
+  options:
+    url: https://papaya-rss.com/link/BsMwjuvmQBWjFWAP?sub=3
 
 # 网页模糊抓取
 - type: webfuzz
@@ -18,7 +21,15 @@
   options:
     channel: ssrList
     num: 200
+- type: tgchannel
+  options:
+    channel: Xinana_awsl
+    num: 1000
 
+- type: tgchannel
+  options:
+    channel: vmesssr
+    num: 1000
 # 翻墙党论坛抓取
 - type: web-fanqiangdang
   options:

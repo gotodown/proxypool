@@ -8,7 +8,7 @@ import (
 	"os"
 
 	"github.com/zu1k/proxypool/internal/app"
-	"github.com/zu1k/proxypool/internal/cron"
+//	"github.com/zu1k/proxypool/internal/cron"
 	"github.com/zu1k/proxypool/internal/database"
 	"github.com/zu1k/proxypool/pkg/proxy"
 )
@@ -37,7 +37,7 @@ func main() {
 	database.InitTables()
 	proxy.InitGeoIpDB()
 	fmt.Println("Do the first crawl...")
-	go app.CrawlGo()
-	go cron.Cron()
+	app.CrawlGo()
+	//go cron.Cron()
 	// api.Run()
 }

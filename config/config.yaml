@@ -2,7 +2,7 @@
 domain: example.com
 
 # database url
-database_url: ""
+database_url: "postgres://postgres:123456@127.0.0.1:5432/proxypool"
 
 # cloudflare api
 cf_email: ""
@@ -11,6 +11,6 @@ cf_key: ""
 # source definition file
 source-files:
   # use local file
-  - source.yaml
+  - ./config/source.yaml
   # use web file
-  - https://example.com/source.yaml
+  #- https://example.com/source.yaml
