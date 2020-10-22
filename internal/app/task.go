@@ -44,9 +44,8 @@ func CrawlGo() {
 	log.Println("Proxy rename DONE!")
 
 	// 全节点存储到数据库
-	database.SaveProxyList(proxies)
+	// database.SaveProxyList(proxies)
 
-	cache.SetProxies("allproxies", proxies)
 	cache.AllProxiesCount = proxies.Len()
 	log.Println("AllProxiesCount:", cache.AllProxiesCount)
 	cache.SSProxiesCount = proxies.TypeLen("ss")
@@ -63,6 +62,8 @@ func CrawlGo() {
 	log.Println("Now proceed proxy health check...")
 	proxies = proxy.CleanBadProxiesWithGrpool(proxies)
 	log.Println("CrawlGo clash usable node count:", len(proxies))
+	database.SaveProxyList(proxies)
+	cache.SetProxies("allproxies", proxies)
 	proxies.NameReIndex()
 	cache.SetProxies("proxies", proxies)
 	cache.UsefullProxiesCount = proxies.Len()

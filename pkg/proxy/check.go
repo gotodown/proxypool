@@ -34,6 +34,7 @@ func testDelay(p Proxy) (delay uint16, err error) {
 
 	ctx, cancel := context.WithTimeout(context.Background(), defaultURLTestTimeout)
 	delay, err = clashProxy.URLTest(ctx, "http://www.gstatic.com/generate_204")
+	//fmt.Println("-----------------------",delay, "-----------------")
 	cancel()
 	return delay, err
 }
@@ -80,7 +81,9 @@ func CleanBadProxiesWithGrpool(proxies []Proxy) (cproxies []Proxy) {
 			cproxies = make(ProxyList, 0, 500)
 			for _, p := range proxies {
 				if _, ok := okMap[p.Identifier()]; ok {
-					cproxies = append(cproxies, p.Clone())
+					pc := p.Clone()
+					pc.SetUseable(true)
+					cproxies = append(cproxies, pc)
 				}
 			}
 			return
