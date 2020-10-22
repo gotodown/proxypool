@@ -56,6 +56,8 @@ func (g *TGChannelGetter) Get() proxy.ProxyList {
 	g.c.OnHTML("div.tgme_widget_message_text", func(e *colly.HTMLElement) {
 		g.results = append(g.results, GrepLinksFromString(e.Text)...)
 		// 抓取到http链接，有可能是订阅链接或其他链接，无论如何试一下
+		// 打印--
+		fmt.Println(e.Text, g.Url, "========\n")
 		subUrls := urlRe.FindAllString(e.Text, -1)
 		for _, url := range subUrls {
 			result = append(result, (&Subscribe{Url: url}).Get()...)
