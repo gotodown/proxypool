@@ -2,7 +2,6 @@ package getter
 
 import (
 	"io/ioutil"
-	"log"
 	"sync"
 
 	"github.com/zu1k/proxypool/pkg/proxy"

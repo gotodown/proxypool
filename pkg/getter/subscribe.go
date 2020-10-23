@@ -2,7 +2,6 @@ package getter
 
 import (
 	"io/ioutil"
-	"log"
 	"strings"
 	"sync"
 

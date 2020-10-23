@@ -3,7 +3,6 @@ package getter
 import (
 	"encoding/json"
 	"io/ioutil"
-	"log"
 	"sync"
 
 	"github.com/zu1k/proxypool/pkg/proxy"

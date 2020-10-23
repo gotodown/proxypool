@@ -1,7 +1,6 @@
 package app
 
 import (
-	"log"
 	"sync"
 	"time"
 
@@ -9,9 +8,12 @@ import (
 	"github.com/zu1k/proxypool/internal/database"
 	"github.com/zu1k/proxypool/pkg/provider"
 	"github.com/zu1k/proxypool/pkg/proxy"
+	"github.com/zu1k/proxypool/pkg/tool"
 )
 
 var location, _ = time.LoadLocation("PRC")
+
+var log = tool.Logger
 
 func CrawlGo() {
 	wg := &sync.WaitGroup{}

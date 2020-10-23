@@ -2,7 +2,7 @@ package getter
 
 import (
 	"fmt"
-	"log"
+	logger "log"
 	"sync"
 
 	"github.com/gocolly/colly"
@@ -10,7 +10,10 @@ import (
 	"github.com/zu1k/proxypool/pkg/tool"
 )
 
+var log *logger.Logger
+
 func init() {
+	log = tool.Logger
 	Register("tgchannel", NewTGChannelGetter)
 }
 
@@ -55,15 +58,16 @@ func (g *TGChannelGetter) Get() proxy.ProxyList {
 	// 找到所有的文字消息
 	g.c.OnHTML("div.tgme_widget_message_text", func(e *colly.HTMLElement) {
 		g.results = append(g.results, GrepLinksFromString(e.Text)...)
+
 		// 抓取到http链接，有可能是订阅链接或其他链接，无论如何试一下
 		// 打印--
-		fmt.Println(e.Text, g.Url, "========\n")
+		log.Println(e.Request.Ctx, g.Url, "========\n")
 		subUrls := urlRe.FindAllString(e.Text, -1)
 		for _, url := range subUrls {
 			result = append(result, (&Subscribe{Url: url}).Get()...)
 		}
 	})
-
+	fmt.Println(g.results)
 	// 找到之前消息页面的链接，加入访问队列
 	g.c.OnHTML("link[rel=prev]", func(e *colly.HTMLElement) {
 		if len(g.results) < g.NumNeeded {

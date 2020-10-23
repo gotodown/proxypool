@@ -2,7 +2,6 @@ package getter
 
 import (
 	"fmt"
-	"log"
 	"strings"
 	"sync"
 
