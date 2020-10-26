@@ -3,8 +3,10 @@ package getter
 import (
 	"fmt"
 	logger "log"
+	"strings"
 	"sync"
 
+	"github.com/PuerkitoBio/goquery"
 	"github.com/gocolly/colly"
 	"github.com/zu1k/proxypool/pkg/proxy"
 	"github.com/zu1k/proxypool/pkg/tool"
@@ -57,17 +59,32 @@ func (g *TGChannelGetter) Get() proxy.ProxyList {
 	g.results = make([]string, 0)
 	// 找到所有的文字消息
 	g.c.OnHTML("div.tgme_widget_message_text", func(e *colly.HTMLElement) {
-		g.results = append(g.results, GrepLinksFromString(e.Text)...)
+
+		text, _ := e.DOM.Html()
+		lines := strings.Split(text, "<br/>")
+		for _, line := range lines {
+			links := GrepLinksFromString(line)
+			g.results = append(g.results, links...)
+		}
 
 		// 抓取到http链接，有可能是订阅链接或其他链接，无论如何试一下
 		// 打印--
-		log.Println(e.Request.Ctx, g.Url, "========\n")
-		subUrls := urlRe.FindAllString(e.Text, -1)
+		// log.Println(e.Text, g.Url, "========\n")
+		subUrls := make([]string, 0)
+		e.DOM.Find("a").Each(func(i int, selection *goquery.Selection) {
+			u := selection.Text()
+			subUrls = append(subUrls, u)
+		})
+		// subUrls := urlRe.FindAllString(e.Text, -1)
 		for _, url := range subUrls {
+			tgName := strings.Split(g.Url, "/")
+			if strings.Contains(url, "t.me") {
+				continue
+			}
+			log.Printf("来自%s频道的可能的链接%s \n", tgName[len(tgName)-1], url)
 			result = append(result, (&Subscribe{Url: url}).Get()...)
 		}
 	})
-	fmt.Println(g.results)
 	// 找到之前消息页面的链接，加入访问队列
 	g.c.OnHTML("link[rel=prev]", func(e *colly.HTMLElement) {
 		if len(g.results) < g.NumNeeded {

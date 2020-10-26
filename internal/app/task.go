@@ -47,7 +47,6 @@ func CrawlGo() {
 
 	// 全节点存储到数据库
 	// database.SaveProxyList(proxies)
-
 	cache.AllProxiesCount = proxies.Len()
 	log.Println("AllProxiesCount:", cache.AllProxiesCount)
 	cache.SSProxiesCount = proxies.TypeLen("ss")

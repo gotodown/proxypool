@@ -6,7 +6,7 @@ go 1.14
 
 require (
 	github.com/Dreamacro/clash v1.0.1-0.20200812125056-8b7c731fd629
-	github.com/PuerkitoBio/goquery v1.5.1 // indirect
+	github.com/PuerkitoBio/goquery v1.5.1
 	github.com/andybalholm/cascadia v1.2.0 // indirect
 	github.com/antchfx/htmlquery v1.2.3 // indirect
 	github.com/antchfx/xmlquery v1.2.4 // indirect
@@ -18,6 +18,7 @@ require (
 	github.com/gobwas/glob v0.2.3 // indirect
 	github.com/gocolly/colly v1.2.0
 	github.com/golang/protobuf v1.4.2 // indirect
+	github.com/google/go-github/v32 v32.1.0
 	github.com/heroku/x v0.0.25
 	github.com/ivpusic/grpool v1.0.0
 	github.com/jackc/pgproto3/v2 v2.0.4 // indirect

@@ -2,6 +2,7 @@ package getter
 
 import (
 	"errors"
+	"fmt"
 	"sync"
 
 	"github.com/zu1k/proxypool/pkg/proxy"
@@ -35,6 +36,8 @@ func StringArray2ProxyArray(origin []string) proxy.ProxyList {
 		p, err := proxy.ParseProxyFromLink(link)
 		if err == nil && p != nil {
 			results = append(results, p)
+		} else {
+			fmt.Println(err, "======================\n\n\n")
 		}
 	}
 	return results

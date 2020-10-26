@@ -96,11 +96,11 @@ func (v Vmess) Link() (link string) {
 
 type vmessLinkJson struct {
 	Add  string      `json:"add"`
-	V    string      `json:"v"`
+	V    interface{} `json:"v"`
 	Ps   string      `json:"ps"`
 	Port interface{} `json:"port"`
 	Id   string      `json:"id"`
-	Aid  string      `json:"aid"`
+	Aid  interface{} `json:"aid"`
 	Net  string      `json:"net"`
 	Type string      `json:"type"`
 	Host string      `json:"host"`
@@ -213,23 +213,50 @@ func ParseVmessLink(link string) (*Vmess, error) {
 			return nil, ErrorVmessPayloadParseFail
 		}
 		vmessJson := vmessLinkJson{}
+		// if _, ok := payload["aid"].(string); ok {
+		// 	payload["aid"] = strconv.Itoa(payload["aid"])
+		// }
 		err = json.Unmarshal([]byte(payload), &vmessJson)
 		if err != nil {
 			return nil, err
 		}
 		port := 443
 		portInterface := vmessJson.Port
+		v := "2"
+		vInterface := vmessJson.V
+		switch vInterface.(type) {
+		case int:
+			v = strconv.Itoa(vInterface.(int))
+		case string:
+			v = vInterface.(string)
+		default:
+			log.Printf("%s 的类型是%T\n", vInterface, vInterface)
+		}
+		_ = v
 		switch portInterface.(type) {
 		case int:
+			log.Printf("%s 的类型-------%T", portInterface, portInterface)
 			port = portInterface.(int)
 		case string:
+			log.Printf("%s 的类型-------%T", portInterface, portInterface)
 			port, _ = strconv.Atoi(portInterface.(string))
+		case float64:
+			log.Printf("%s 的类型-------%T", portInterface, portInterface)
+			pTmp := portInterface.(float64)
+			sTmp := strconv.FormatFloat(pTmp, 'f', -1, 64)
+			port, _ = strconv.Atoi(sTmp)
+		default:
+			log.Printf("%s 的类型-------%T", portInterface, portInterface)
+		}
+		alterId := 0
+		aidInterface := vmessJson.Aid
+		switch aidInterface.(type) {
+		case int:
+			alterId = aidInterface.(int)
+		case string:
+			alterId, _ = strconv.Atoi(aidInterface.(string))
 		}
 
-		alterId, err := strconv.Atoi(vmessJson.Aid)
-		if err != nil {
-			alterId = 0
-		}
 		tls := vmessJson.Tls == "tls"
 
 		wsHeaders := make(map[string]string)

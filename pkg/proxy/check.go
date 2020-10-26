@@ -70,19 +70,23 @@ func CleanBadProxiesWithGrpool(proxies []Proxy) (cproxies []Proxy) {
 		done <- struct{}{}
 	}()
 
-	okMap := make(map[string]struct{})
+	okMap := make(map[string]interface{})
 	for {
 		select {
 		case r := <-c:
 			if r.delay > 0 {
-				okMap[r.name] = struct{}{}
+				okMap[r.name] = r.delay
 			}
 		case <-done:
 			cproxies = make(ProxyList, 0, 500)
 			for _, p := range proxies {
 				if _, ok := okMap[p.Identifier()]; ok {
 					pc := p.Clone()
+					pc.SetSpeed(okMap[p.Identifier()].(uint16))
+					pc.SetTestTime()
 					pc.SetUseable(true)
+					// log.Println(pc.Link(), pc.BaseInfo().TestTime, "#########################")
+
 					cproxies = append(cproxies, pc)
 				}
 			}

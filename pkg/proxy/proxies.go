@@ -49,6 +49,7 @@ func (ps ProxyList) Deduplication() ProxyList {
 	for _, item := range ps {
 		if item != nil {
 			if _, ok := temp[item.Identifier()]; !ok {
+				log.Println("去重验证----", item.Identifier())
 				temp[item.Identifier()] = struct{}{}
 				result = append(result, item)
 			}

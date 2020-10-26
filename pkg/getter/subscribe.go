@@ -18,6 +18,7 @@ type Subscribe struct {
 }
 
 func (s *Subscribe) Get() proxy.ProxyList {
+
 	resp, err := tool.GetHttpClient().Get(s.Url)
 	if err != nil {
 		return nil
@@ -35,6 +36,7 @@ func (s *Subscribe) Get() proxy.ProxyList {
 	nodesString = strings.ReplaceAll(nodesString, "\t", "")
 
 	nodes := strings.Split(nodesString, "\n")
+	log.Printf("请求%s==的订阅---true---node count=%d\n", s.Url, len(nodes))
 	return StringArray2ProxyArray(nodes)
 }
 

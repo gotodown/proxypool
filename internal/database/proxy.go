@@ -1,6 +1,8 @@
 package database
 
 import (
+	"fmt"
+
 	"github.com/zu1k/proxypool/pkg/proxy"
 	"gorm.io/gorm"
 )
@@ -50,6 +52,7 @@ func SaveProxyList(pl proxy.ProxyList) {
 	//}
 
 	for _, p := range pl {
+		fmt.Println(p.BaseInfo().TestTime)
 		DB.Create(&Proxy{
 			Base:       *p.BaseInfo(),
 			Link:       p.Link(),

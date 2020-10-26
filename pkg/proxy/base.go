@@ -1,20 +1,31 @@
 package proxy
 
 import (
-	"errors"
+	logger "log"
 	"strings"
+	"time"
+
+	"github.com/zu1k/proxypool/pkg/tool"
 )
 
 type Base struct {
-	Name    string `yaml:"name" json:"name" gorm:"index"`
-	Server  string `yaml:"server" json:"server" gorm:"index"`
-	Port    int    `yaml:"port" json:"port" gorm:"index"`
-	Type    string `yaml:"type" json:"type" gorm:"index"`
-	UDP     bool   `yaml:"udp,omitempty" json:"udp,omitempty"`
-	Country string `yaml:"country,omitempty" json:"country,omitempty" gorm:"index"`
-	Useable bool   `yaml:"useable,omitempty" json:"useable,omitempty" gorm:"index"`
+	Name     string    `yaml:"name" json:"name" gorm:"index"`
+	Server   string    `yaml:"server" json:"server" gorm:"index"`
+	Port     int       `yaml:"port" json:"port" gorm:"index"`
+	Type     string    `yaml:"type" json:"type" gorm:"index"`
+	UDP      bool      `yaml:"udp,omitempty" json:"udp,omitempty"`
+	Country  string    `yaml:"country,omitempty" json:"country,omitempty" gorm:"index"`
+	Useable  bool      `yaml:"useable,omitempty" json:"useable,omitempty" gorm:"index"`
+	Speed    uint16    `yaml:"speed" json:"speed" gorm:"index"`
+	TestTime time.Time `yaml:"testtime" json:"testtime" gorm:"index"`
 }
 
+var log *logger.Logger
+
+func init() {
+	log = tool.Logger
+
+}
 func (b *Base) TypeName() string {
 	if b.Type == "" {
 		return "unknown"
@@ -22,6 +33,13 @@ func (b *Base) TypeName() string {
 	return b.Type
 }
 
+func (b *Base) SetSpeed(speed uint16) {
+	b.Speed = speed
+}
+
+func (b *Base) SetTestTime() {
+	b.TestTime = time.Now()
+}
 func (b *Base) SetName(name string) {
 	b.Name = name
 }
@@ -60,6 +78,8 @@ type Proxy interface {
 	Clone() Proxy
 	SetUseable(useable bool)
 	SetCountry(country string)
+	SetSpeed(speed uint16)
+	SetTestTime()
 }
 
 func ParseProxyFromLink(link string) (p Proxy, err error) {
@@ -73,7 +93,7 @@ func ParseProxyFromLink(link string) (p Proxy, err error) {
 		p, err = ParseTrojanLink(link)
 	}
 	if err != nil || p == nil {
-		return nil, errors.New("link parse failed")
+		return nil, err //errors.New("link parse failed")
 	}
 	ip, country, err := geoIp.Find(p.BaseInfo().Server)
 	if err != nil {

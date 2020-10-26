@@ -81,10 +81,11 @@ const (
 	domainPattern = `[a-zA-Z0-9][a-zA-Z0-9_-]{0,62}(\.[a-zA-Z0-9][a-zA-Z0-9_-]{0,62})*(\.[a-zA-Z][a-zA-Z0-9]{0,10}){1}`
 
 	// 匹配 URL
-	urlPattern = `((https|http)?://)?` + // 协议
-		`(([0-9a-zA-Z]+:)?[0-9a-zA-Z_-]+@)?` + // pwd:user@
-		"(" + ipPattern + "|(" + domainPattern + "))" + // IP 或域名
-		`(:\d{1,5})?` + // 端口
-		`(/+[a-zA-Z0-9][a-zA-Z0-9_.-]*)*/*` + // path
-		`(\?([a-zA-Z0-9_-]+(=.*&?)*)*)*` // query
+	// urlPattern = `((https|http)?://)?` + // 协议
+	// 	`(([0-9a-zA-Z]+:)?[0-9a-zA-Z_-]+@)?` + // pwd:user@
+	// 	"(" + ipPattern + "|(" + domainPattern + "))" + // IP 或域名
+	// 	`(:\d{1,5})?` + // 端口
+	// 	`(/+[a-zA-Z0-9][a-zA-Z0-9_.-]*)*/*` + // path
+	// 	`(\?([a-zA-Z0-9_-]+(=.*&?)*)*)*` // query
+	urlPattern = `(https?|ftp|file)://[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]`
 )
