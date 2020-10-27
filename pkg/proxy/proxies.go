@@ -49,9 +49,11 @@ func (ps ProxyList) Deduplication() ProxyList {
 	for _, item := range ps {
 		if item != nil {
 			if _, ok := temp[item.Identifier()]; !ok {
-				log.Println("去重验证----", item.Identifier())
+
 				temp[item.Identifier()] = struct{}{}
 				result = append(result, item)
+			} else {
+				log.Println("去除重复----", item.Identifier())
 			}
 		}
 	}
@@ -92,7 +94,11 @@ func (ps ProxyList) NameReIndex() ProxyList {
 func (ps ProxyList) NameAddTG() ProxyList {
 	num := len(ps)
 	for i := 0; i < num; i++ {
-		ps[i].SetName(fmt.Sprintf("%s %s", ps[i].BaseInfo().Name, "@peekfun"))
+		bi := ps[i].BaseInfo().Name
+		if ps[i].BaseInfo().Type != "vmess" {
+			continue
+		}
+		ps[i].SetName(fmt.Sprintf("%s", bi))
 	}
 	return ps
 }

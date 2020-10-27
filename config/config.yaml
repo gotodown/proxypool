@@ -2,7 +2,7 @@
 domain: "34.96.200.15"
 
 # database url
-database_url: "postgres://postgres:123456@127.0.0.1:5432/proxy5"
+database_url: "postgres://postgres:123456@127.0.0.1:5432/proxy"
 
 # cloudflare api
 cf_email: ""

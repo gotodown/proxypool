@@ -1,85 +1,85 @@
-# #模糊抓取订阅链接
-# - type: webfuzzsub
-#   options:
-#     url: https://raw.githubusercontent.com/du5/free/master/sub.list
+#模糊抓取订阅链接
+- type: webfuzzsub
+  options:
+    url: https://raw.githubusercontent.com/du5/free/master/sub.list
 
-# # 订阅链接
-# - type: subscribe
-#   options:
-#     url: https://raw.githubusercontent.com/ssrsub/ssr/master/v2ray
-# - type: subscribe
-#   options:
-#     url: https://subhaha.xyz/link/9sRfg4gLBAcZwud7?sub=3&extend=1
-# - type: subscribe
-#   options:
-#     url: https://raw.githubusercontent.com/gotodown/scientice/master/sub/subscrib-1021.txt
-# - type: subscribe
-#   options:
-#     url: https://raw.githubusercontent.com/cogutt/PaidNode/master/v2raysub
-# - type: subscribe
-#   options:
-#     url: https://starlink.cx/api/v1/client/subscribe?token=4b6d37e4a5a7bb9c263be2c0a31b151c
-# - type: subscribe
-#   options:
-#     url: https://raw.githubusercontent.com/cogutt/freeV2ray/master/v2raysub20201012
-# - type: subscribe
-#   options:
-#     url: https://baipiao-rss.com/link/XXjgQOr259IWBJ9p?sub=3
-# - type: subscribe
-#   options:
-#     url: https://raw.githubusercontent.com/gotodown/scientice/master/sub/subscrib.txt
-# - type: subscribe
-#   options:
-#     url: https://gooii.ml/v2ray/sub/vmess.html
-# - type: subscribe
-#   options:
-#     url: https://raw.githubusercontent.com/freefq/free/master/v2
-# - type: subscribe
-#   options:
-#     url: https://jiang.netlify.com
-# - type: subscribe
-#   options:
-#     url: https://raw.githubusercontent.com/ssrsub/ssr/master/ss-sub
-# ## from github
-# - type: subscribe
-#   options:
-#     url: https://raw.githubusercontent.com/cogutt/PaidNode/master/v2raysub
-# - type: subscribe
-#   options:
-#     url: https://raw.githubusercontent.com/cogutt/freeV2ray/master/v2raysub20201012
-# - type: subscribe
-#   options:
-#     url: https://raw.githubusercontent.com/cogutt/fastNode/master/getNode
-# - type: subscribe
-#   options:
-#     url: https://papaya-rss.com/link/BsMwjuvmQBWjFWAP?sub=3
-# # 网页模糊抓取
-# - type: webfuzz
-#   options:
-#     url: https://merlinblog.xyz/wiki/freess.html
+# 订阅链接
+- type: subscribe
+  options:
+    url: https://raw.githubusercontent.com/ssrsub/ssr/master/v2ray
+- type: subscribe
+  options:
+    url: https://subhaha.xyz/link/9sRfg4gLBAcZwud7?sub=3&extend=1
+- type: subscribe
+  options:
+    url: https://raw.githubusercontent.com/gotodown/scientice/master/sub/subscrib-1021.txt
+- type: subscribe
+  options:
+    url: https://raw.githubusercontent.com/cogutt/PaidNode/master/v2raysub
+- type: subscribe
+  options:
+    url: https://starlink.cx/api/v1/client/subscribe?token=4b6d37e4a5a7bb9c263be2c0a31b151c
+- type: subscribe
+  options:
+    url: https://raw.githubusercontent.com/cogutt/freeV2ray/master/v2raysub20201012
+- type: subscribe
+  options:
+    url: https://baipiao-rss.com/link/XXjgQOr259IWBJ9p?sub=3
+- type: subscribe
+  options:
+    url: https://raw.githubusercontent.com/gotodown/scientice/master/sub/subscrib.txt
+- type: subscribe
+  options:
+    url: https://gooii.ml/v2ray/sub/vmess.html
+- type: subscribe
+  options:
+    url: https://raw.githubusercontent.com/freefq/free/master/v2
+- type: subscribe
+  options:
+    url: https://jiang.netlify.com
+- type: subscribe
+  options:
+    url: https://raw.githubusercontent.com/ssrsub/ssr/master/ss-sub
+## from github
+- type: subscribe
+  options:
+    url: https://raw.githubusercontent.com/cogutt/PaidNode/master/v2raysub
+- type: subscribe
+  options:
+    url: https://raw.githubusercontent.com/cogutt/freeV2ray/master/v2raysub20201012
+- type: subscribe
+  options:
+    url: https://raw.githubusercontent.com/cogutt/fastNode/master/getNode
+- type: subscribe
+  options:
+    url: https://papaya-rss.com/link/BsMwjuvmQBWjFWAP?sub=3
+# 网页模糊抓取
+- type: webfuzz
+  options:
+    url: https://merlinblog.xyz/wiki/freess.html
 
 #tg频道抓取
-# - type: tgchannel
-#   options:
-#     channel: ssrList
-#     num: 200
+- type: tgchannel
+  options:
+    channel: ssrList
+    num: 200
 
 - type: tgchannel
   options:
     channel: Xinana_awsl
     num: 1000
-# - type: tgchannel
-#   options:
-#     channel: V2List
-#     num: 1000
-# - type: tgchannel
-#   options:
-#     channel: vmesssr
-#     num: 1000
-# # 翻墙党论坛抓取
-# - type: web-fanqiangdang
-#   options:
-#     url: https://fanqiangdang.com/forum-48-1.html
-# # 某个网站抓取
-# - type: web-freessrxyz
-#   options:
+- type: tgchannel
+  options:
+    channel: V2List
+    num: 1000
+- type: tgchannel
+  options:
+    channel: vmesssr
+    num: 1000
+# 翻墙党论坛抓取
+- type: web-fanqiangdang
+  options:
+    url: https://fanqiangdang.com/forum-48-1.html
+# 某个网站抓取
+- type: web-freessrxyz
+  options:
