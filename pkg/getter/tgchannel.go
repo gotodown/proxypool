@@ -78,7 +78,7 @@ func (g *TGChannelGetter) Get() proxy.ProxyList {
 		// subUrls := urlRe.FindAllString(e.Text, -1)
 		for _, url := range subUrls {
 			tgName := strings.Split(g.Url, "/")
-			if strings.Contains(url, "t.me") {
+			if strings.Contains(url, "t.me") || strings.HasPrefix(url, "@") || len(url) < 30 {
 				continue
 			}
 			log.Printf("来自%s频道的可能的链接%s \n", tgName[len(tgName)-1], url)
@@ -97,7 +97,7 @@ func (g *TGChannelGetter) Get() proxy.ProxyList {
 	if err != nil {
 		_ = fmt.Errorf("%s", err.Error())
 	}
-	return append(result, StringArray2ProxyArray(g.results)...)
+	return append(result, StringArray2ProxyArray(g.results, g.Url)...)
 }
 
 func (g *TGChannelGetter) Get2Chan(pc chan proxy.Proxy, wg *sync.WaitGroup) {

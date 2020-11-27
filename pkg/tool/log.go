@@ -9,7 +9,7 @@ import (
 
 func LogToFile() *log.Logger {
 
-	file := "./logs/" + time.Now().Format("2006-01-02") + ".log"
+	file := "logs/" + time.Now().Format("2006-01-02") + ".log"
 	logFile, err := os.OpenFile(file, os.O_RDWR|os.O_CREATE|os.O_APPEND, 0766)
 	defer logFile.Close()
 	if err != nil {

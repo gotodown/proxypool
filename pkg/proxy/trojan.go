@@ -39,7 +39,7 @@ type Trojan struct {
 */
 
 func (t Trojan) Identifier() string {
-	return net.JoinHostPort(t.Server, strconv.Itoa(t.Port)) + t.Password
+	return net.JoinHostPort(t.Server, strconv.Itoa(t.Port))
 }
 
 func (t Trojan) String() string {

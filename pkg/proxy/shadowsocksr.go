@@ -35,7 +35,7 @@ type ShadowsocksR struct {
 }
 
 func (ssr ShadowsocksR) Identifier() string {
-	return net.JoinHostPort(ssr.Server, strconv.Itoa(ssr.Port)) + ssr.Password + ssr.ProtocolParam
+	return net.JoinHostPort(ssr.Server, strconv.Itoa(ssr.Port))
 }
 
 func (ssr ShadowsocksR) String() string {
@@ -65,7 +65,7 @@ func (ssr ShadowsocksR) Clone() Proxy {
 // https://github.com/HMBSbige/ShadowsocksR-Windows/wiki/SSR-QRcode-scheme
 func (ssr ShadowsocksR) Link() (link string) {
 	payload := fmt.Sprintf("%s:%d:%s:%s:%s:%s",
-		ssr.Server, ssr.Port, ssr.Protocol, ssr.Cipher, ssr.Obfs, tool.Base64EncodeString(ssr.Password, true))
+		ssr.Host, ssr.Port, ssr.Protocol, ssr.Cipher, ssr.Obfs, tool.Base64EncodeString(ssr.Password, true))
 	query := url.Values{}
 	query.Add("obfsparam", tool.Base64EncodeString(ssr.ObfsParam, true))
 	query.Add("protoparam", tool.Base64EncodeString(ssr.ProtocolParam, true))

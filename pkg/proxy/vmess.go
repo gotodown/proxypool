@@ -40,7 +40,7 @@ type HTTPOptions struct {
 }
 
 func (v Vmess) Identifier() string {
-	return net.JoinHostPort(v.Server, strconv.Itoa(v.Port)) + v.Cipher + v.UUID
+	return net.JoinHostPort(v.Server, strconv.Itoa(v.Port))
 }
 
 func (v Vmess) String() string {

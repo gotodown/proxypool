@@ -23,6 +23,6 @@ vendor
 
 assets/html/
 .vscode/
-proxypool
+proxypool*
 # log
 *.log

@@ -65,5 +65,5 @@ func freessrxyzFetch(link string) proxy.ProxyList {
 		result = append(result, node.Url)
 	}
 
-	return StringArray2ProxyArray(result)
+	return StringArray2ProxyArray(result, link)
 }

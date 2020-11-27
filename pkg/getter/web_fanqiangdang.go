@@ -38,7 +38,7 @@ func NewWebFanqiangdangGetter(options tool.Options) (getter Getter, err error) {
 func (w *WebFanqiangdang) Get() proxy.ProxyList {
 	w.results = make(proxy.ProxyList, 0)
 	w.c.OnHTML("td.t_f", func(e *colly.HTMLElement) {
-		w.results = append(w.results, FuzzParseProxyFromString(e.Text)...)
+		w.results = append(w.results, FuzzParseProxyFromString(e.Text, w.Url)...)
 		subUrls := urlRe.FindAllString(e.Text, -1)
 		for _, url := range subUrls {
 			w.results = append(w.results, (&Subscribe{Url: url}).Get()...)

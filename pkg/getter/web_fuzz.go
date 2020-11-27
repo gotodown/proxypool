@@ -27,7 +27,7 @@ func (w *WebFuzz) Get() proxy.ProxyList {
 		return nil
 	}
 
-	return FuzzParseProxyFromString(string(body))
+	return FuzzParseProxyFromString(string(body), w.Url)
 }
 
 func (w *WebFuzz) Get2Chan(pc chan proxy.Proxy, wg *sync.WaitGroup) {

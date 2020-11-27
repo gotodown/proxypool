@@ -2,7 +2,6 @@ package getter
 
 import (
 	"errors"
-	"fmt"
 	"sync"
 
 	"github.com/zu1k/proxypool/pkg/proxy"
@@ -30,14 +29,15 @@ func NewGetter(sourceType string, options tool.Options) (getter Getter, err erro
 	return nil, ErrorCreaterNotSupported
 }
 
-func StringArray2ProxyArray(origin []string) proxy.ProxyList {
+func StringArray2ProxyArray(origin []string, subURL string) proxy.ProxyList {
 	results := make(proxy.ProxyList, 0)
 	for _, link := range origin {
 		p, err := proxy.ParseProxyFromLink(link)
 		if err == nil && p != nil {
+			p.BaseInfo().SetFrom(subURL)
 			results = append(results, p)
 		} else {
-			fmt.Println(err, "======================\n\n\n")
+			log.Println(err, "======================\n", link, "===========")
 		}
 	}
 	return results
@@ -51,8 +51,8 @@ func GrepLinksFromString(text string) []string {
 	return results
 }
 
-func FuzzParseProxyFromString(text string) proxy.ProxyList {
-	return StringArray2ProxyArray(GrepLinksFromString(text))
+func FuzzParseProxyFromString(text string, subURL string) proxy.ProxyList {
+	return StringArray2ProxyArray(GrepLinksFromString(text), subURL)
 }
 
 var (

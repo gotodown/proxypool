@@ -68,6 +68,9 @@ func (ps ProxyList) Sort() ProxyList {
 func (ps ProxyList) NameSetCounrty() ProxyList {
 	num := len(ps)
 	for i := 0; i < num; i++ {
+		if ps[i].TypeName() == "vmess" {
+			continue
+		}
 		ps[i].SetName(ps[i].BaseInfo().Country)
 	}
 	return ps
@@ -76,6 +79,9 @@ func (ps ProxyList) NameSetCounrty() ProxyList {
 func (ps ProxyList) NameAddIndex() ProxyList {
 	num := len(ps)
 	for i := 0; i < num; i++ {
+		if ps[i].TypeName() == "vmess" {
+			continue
+		}
 		ps[i].SetName(fmt.Sprintf("%s_%+02v", ps[i].BaseInfo().Name, i+1))
 	}
 	return ps

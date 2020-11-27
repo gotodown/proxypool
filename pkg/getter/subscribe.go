@@ -37,7 +37,7 @@ func (s *Subscribe) Get() proxy.ProxyList {
 
 	nodes := strings.Split(nodesString, "\n")
 	log.Printf("请求%s==的订阅---true---node count=%d\n", s.Url, len(nodes))
-	return StringArray2ProxyArray(nodes)
+	return StringArray2ProxyArray(nodes, s.Url)
 }
 
 func (s *Subscribe) Get2Chan(pc chan proxy.Proxy, wg *sync.WaitGroup) {

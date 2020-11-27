@@ -81,12 +81,11 @@ func CleanBadProxiesWithGrpool(proxies []Proxy) (cproxies []Proxy) {
 			cproxies = make(ProxyList, 0, 500)
 			for _, p := range proxies {
 				pc := p.Clone()
-				if _, ok := okMap[p.Identifier()]; ok {
-					pc.SetSpeed(okMap[p.Identifier()].(uint16))
-					pc.SetTestTime()
+				if delay, ok := okMap[p.Identifier()]; ok && delay.(uint16) > 0 {
+					pc.SetDelay(okMap[p.Identifier()].(uint16))
 					pc.SetUseable(true)
+					cproxies = append(cproxies, pc)
 				}
-				cproxies = append(cproxies, pc)
 			}
 			return
 		}

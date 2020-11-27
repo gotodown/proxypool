@@ -14,6 +14,7 @@ import (
 
 var Getters = make([]getter.Getter, 0)
 
+// InitConfigAndGetters zheshi sha
 func InitConfigAndGetters(path string) (err error) {
 	err = config.Parse(path)
 	if err != nil {
@@ -27,9 +28,22 @@ func InitConfigAndGetters(path string) (err error) {
 	return
 }
 
+func InitConfigAndGetters(path string) (err error){
+	err = config.Parse(path)
+	if err != nil {
+		return
+	}
+	if s:= config.Config.SourceFiles; len(s) == {
+		return errors.New("no sources")
+	} else {
+		initGetters(s)
+	}
+	return
+}
+
 func initGetters(sourceFiles []string) {
 	Getters = make([]getter.Getter, 0)
-        fmt.Println(sourceFiles)
+	fmt.Println(sourceFiles)
 	for _, path := range sourceFiles {
 		data, err := config.ReadFile(path)
 		if err != nil {
@@ -38,7 +52,7 @@ func initGetters(sourceFiles []string) {
 		}
 		sourceList := make([]config.Source, 0)
 		err = yaml.Unmarshal(data, &sourceList)
-                fmt.Println(sourceList)
+		fmt.Println(sourceList)
 		if err != nil {
 			fmt.Errorf("Init SourceFile Error: %s\n", err.Error())
 			continue

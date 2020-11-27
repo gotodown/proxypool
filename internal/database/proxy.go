@@ -1,6 +1,8 @@
 package database
 
 import (
+	"time"
+
 	"github.com/zu1k/proxypool/pkg/proxy"
 	"gorm.io/gorm"
 )
@@ -26,6 +28,36 @@ func InitTables() {
 }
 
 const roundSize = 100
+
+// UpdateProxyList 清理失效链接
+func UpdateProxyList(pl proxy.ProxyList) {
+
+	if DB == nil {
+		return
+	}
+	for _, p := range pl {
+		DB.Model(&Proxy{}).Where("created_at < '?' and delay > 0", time.Now().Format("2006-01-02")).Updates(
+			&Proxy{
+				Base:       *p.BaseInfo(),
+				Link:       p.Link(),
+				Identifier: p.Identifier(),
+			})
+	}
+}
+
+// DeleteProxyList 删除失效链接， 根据delay
+func DeleteProxyList(pl proxy.ProxyList) {
+
+	if DB == nil {
+		return
+	}
+	for _, p := range pl {
+		if p.BaseInfo().Delay == 0 {
+			DB.Where("identifier='?'", p.Identifier()).Delete(&Proxy{})
+		}
+	}
+
+}
 
 func SaveProxyList(pl proxy.ProxyList) {
 	if DB == nil {
